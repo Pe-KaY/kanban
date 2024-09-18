@@ -1,0 +1,238 @@
+@use "./../mixins.scss";
+
+.maincontainer {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  .headerbar {
+    display: flex;
+    justify-content: space-between;
+
+    // logo wrap
+    .logowrap {
+      width: fit-content;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.5rem;
+
+      // logo kanban and board name styling
+      svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .kanbanname {
+        margin-inline-end: 5rem;
+      }
+
+      .boardname {
+        margin-inline-start: auto;
+        font-size: 1.3rem;
+        font-weight: bold;
+      }
+    }
+
+    // add task styling
+    .addtaskwrap {
+      width: fit-content;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      justify-content: flex-end;
+      padding-inline-end: 1.5rem;
+
+      // button
+      .forpc-btn {
+        @include mixins.button(#635fc7);
+      }
+
+      // for mobile
+      .formobile-btn {
+        background-color: #635fc7;
+        width: 3rem;
+        height: 2rem;
+        padding: 0.5rem 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        display: none;
+        border: none;
+        border-radius: 100vw;
+
+        img {
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      .editboardmenu {
+        position: relative;
+        cursor: pointer;
+        &:hover .floatmenu {
+          visibility: visible;
+        }
+
+        .floatmenu {
+          visibility: hidden;
+          background-color: white;
+          box-shadow: 0 10px 20px rgba(54, 78, 126, 0.25);
+          position: absolute;
+          width: 9rem;
+          height: 6rem;
+          top: 180%;
+          left: -9.5rem;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          padding-inline-start: 1rem;
+          border-radius: 0.5rem;
+
+          p {
+            font-size: 0.8rem;
+            cursor: pointer;
+          }
+
+          .deleteboard {
+            color: red;
+          }
+        }
+
+        svg {
+          cursor: pointer;
+        }
+      }
+    }
+
+    // media queries
+    @media (max-width: 630px) {
+      .addtaskwrap {
+        .forpc-btn {
+          display: none;
+        }
+        .formobile-btn {
+          display: flex;
+        }
+      }
+    }
+  }
+
+  .contentwrapper {
+    border: 1px solid red;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+
+    // sidebar
+    .sidebar {
+      &.hide {
+        // to hide side bar
+        display: none;
+      }
+      padding-block-start: 2rem;
+      width: 16rem;
+      flex-shrink: 0;
+      // border: 1px solid green;
+      display: flex;
+      flex-direction: column;
+
+      .subhead {
+        font-size: 0.8rem;
+        letter-spacing: 0.2em;
+        padding-inline-start: 1.2rem;
+        margin-block-end: 2rem;
+      }
+
+      // boardlist conatiner
+      .boardlist {
+        // border: 1px solid orangered;
+        width: 100%;
+        height: 75%;
+        overflow-y: auto;
+
+        // board
+        .board {
+          @include mixins.board;
+        }
+
+        .createboard {
+          @include mixins.board;
+          height: 2rem;
+        }
+      }
+      // theme wrapp
+      .themewrapp {
+        // border: 1px solid purple;
+        height: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        // theme
+        .theme {
+          width: 80%;
+          border: 1px solid blue;
+          height: 3rem;
+          margin: auto;
+          border-radius: 0.5rem;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+
+          // toggle
+          .toggleDark {
+            display: flex;
+            justify-content: end;
+            align-items: center;
+          }
+          .toggle {
+            display: flex;
+            align-items: center;
+            width: 3rem;
+            height: 1.5rem;
+            border-radius: 100vw;
+            background-color: #635fc7;
+            cursor: pointer;
+
+            span {
+              display: block;
+              width: 1.5rem;
+              height: 1.5rem;
+              border-radius: 100vw;
+              background-color: white;
+            }
+          }
+        }
+        // hidesidebar
+        .hidesidebar {
+          @include mixins.board;
+          cursor: pointer;
+        }
+      }
+    }
+
+    // taskcontent
+    .task-content {
+      // background-color: pink;
+      overflow: auto;
+      width: 100%;
+      // border: 2px solid red;
+
+      .columnwrap {
+        gap: 1rem;
+        display: flex;
+        padding-inline-start: 2rem;
+
+        .columns {
+          width: 18rem;
+          // background-color: aqua;
+          flex-shrink: 0;
+          // padding-block-start: 1rem;
+        }
+      }
+    }
+  }
+}

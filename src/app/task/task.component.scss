@@ -1,0 +1,15 @@
+.container {
+  border: 1px solid orange;
+  height: 6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(54, 78, 126, 0.102);
+
+  .taskname {
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+}

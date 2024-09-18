@@ -1,0 +1,10 @@
+<div class="container">
+  <p class="columnname">{{ column.name }} ({{ column.tasks.length }})</p>
+
+  <!-- column tasks -->
+  <div class="column-tasks" *ngIf="column.tasks">
+    <ng-container *ngFor="let task of column.tasks">
+      <app-task [task]="task"></app-task>
+    </ng-container>
+  </div>
+</div>

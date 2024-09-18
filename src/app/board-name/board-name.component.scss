@@ -1,0 +1,5 @@
+@use "../../mixins.scss";
+
+.board{
+    @include mixins.board();
+}

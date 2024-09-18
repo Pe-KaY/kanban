@@ -1,0 +1,23 @@
+@mixin button($color) {
+  background-color: $color;
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 5px;
+  border-radius: 100vw;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@mixin board {
+  border: 1px solid red;
+  width: 90%;
+  height: 2rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 0 100vw 100vw 0;
+  cursor: pointer;
+}
