@@ -1,8 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Board, Task } from '../interfaces/interfaces';
 
-
-
 // EFFECTS ACTIONS
 // Fetch boards from the API
 export const fetchBoards = createAction('[Kanban] Fetch Boards');
@@ -18,8 +16,6 @@ export const fetchBoardsFailure = createAction(
   '[Kanban] Fetch Boards Failure',
   props<{ error: any }>()
 );
-
-
 
 // MANIPULATION ACTIONS
 // add board
@@ -42,5 +38,15 @@ export const updateTask = createAction(
     columnId: string;
     taskId: string;
     updatedTask: Task;
+  }>()
+);
+
+// drag and drop
+export const moveTask = createAction(
+  '[Kanban] Move Task',
+  props<{
+    taskTitle: string;
+    sourceColumnName: string;
+    targetColumnName: string;
   }>()
 );

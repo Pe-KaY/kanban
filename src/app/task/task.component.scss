@@ -1,6 +1,6 @@
 .container {
   border: 1px solid orange;
-  height: 6rem;
+  min-height: 6rem;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
