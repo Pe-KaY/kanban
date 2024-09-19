@@ -32,12 +32,17 @@
         </svg>
         <!-- board name -->
         <h1 class="kanbanname">Kanban</h1>
-        <p class="boardname">Roadmap</p>
+
+        <ng-container *ngIf="activeBoard$ | async as board">
+          <p class="boardname">{{ board.name }}</p>
+        </ng-container>
       </div>
 
       <!-- add task -->
       <div class="addtaskwrap">
-        <button class="forpc-btn">+Add New Task</button>
+        <button class="forpc-btn" (click)="dataCenterService.toggleModal()">
+          +Add New Task
+        </button>
         <!-- for mobile view -->
         <button class="formobile-btn">
           <img src="../assets/icons/plus.png" alt="add" />
@@ -66,7 +71,7 @@
     <div class="contentwrapper">
       <!-- kanban sidebar -->
       <div class="sidebar" [class.hide]="hideBar">
-        <p class="subhead">ALL BOARDS (3)</p>
+        <p class="subhead">ALL BOARDS ({{ boards.length }})</p>
 
         <!-- boards list  and theme-->
         <div class="boardlist">
@@ -131,4 +136,8 @@
       </div>
     </div>
   </ng-container>
+  <!-- Modals -->
+  <div class="modal" [class.show]="dataCenterService.modal" #modal>
+    <div class="modalcomponents"></div>
+  </div>
 </div>

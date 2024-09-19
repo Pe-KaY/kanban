@@ -235,4 +235,25 @@
       }
     }
   }
+
+  // modal
+  .modal{
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.516);
+    place-content: center;
+    display: none;
+    &.show{
+      display: block;
+    }
+
+    .modalcomponents{
+      background-color: white;
+      width: 30rem;
+      height: 80%;
+      overflow: auto;
+      margin: auto;
+      z-index: 99;
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { CommonModule } from '@angular/common';
 // import components
@@ -33,6 +33,9 @@ export class AppComponent {
     public dataCenterService: DataCenterService
   ) {}
 
+  // query template
+  @ViewChild('modal') modal!: ElementRef;
+
   selectAllBoards$!: Observable<Board[]>;
   activeBoard$!: Observable<any>;
 
@@ -42,6 +45,14 @@ export class AppComponent {
     this.activeBoard$ = this.store
       .select(selectActiveBoards)
       .pipe(map((boards) => boards[0]));
+  }
+
+  ngAfterViewInit() {
+    this.modal.nativeElement.addEventListener('click', (event: Event) => {
+      // close modal on outside click
+      if (event.target === this.modal.nativeElement)
+        this.dataCenterService.toggleModal();
+    });
   }
 
   // hide sidebar
