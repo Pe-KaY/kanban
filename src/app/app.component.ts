@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 // import components
 import { BoardNameComponent } from './board-name/board-name.component';
 import { BoardComponent } from './board/board.component';
-// import api service
-import { ApiService } from './service/api/api.service';
+import { AddEditTaskComponent } from './modals/add-edit-task/add-edit-task.component';
+// import actions 
 import { fetchBoards } from '../../store/store.actions';
 import { Board } from '../../interfaces/interfaces';
 // import store
@@ -18,17 +18,18 @@ import {
 import { map, Observable } from 'rxjs';
 // import data service
 import { DataCenterService } from './service/data-center.service';
+import { AddEditBoardComponent } from "./modals/add-edit-board/add-edit-board.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, BoardNameComponent, BoardComponent],
+  imports: [RouterOutlet, CommonModule, BoardNameComponent, BoardComponent, AddEditTaskComponent, AddEditBoardComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
   constructor(
-    private apiService: ApiService,
+    // private apiService: ApiService,
     private store: Store,
     public dataCenterService: DataCenterService
   ) {}

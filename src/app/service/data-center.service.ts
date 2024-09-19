@@ -14,8 +14,13 @@ export class DataCenterService {
     this.isDarkMode = !this.isDarkMode;
   }
 
-  // modal
+  // modals
   modal = false;
+  // modal types
+  addEditBoard = false;
+  addEditTask = false;
+  editSubTask = false;
+  confirmDelete = false;
   toggleModal() {
     this.modal = !this.modal;
   }
