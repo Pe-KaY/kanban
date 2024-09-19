@@ -30,6 +30,16 @@ export const setActiveBoard = createAction(
   props<{ boardname: string }>()
 );
 
+// add task
+export const addTask = createAction(
+  '[Kanban] Add Task',
+  props<{
+    boardId: string;
+    columnName: string;
+    task: Task;
+  }>()
+);
+
 // Update task
 export const updateTask = createAction(
   '[Kanban] Update Task',

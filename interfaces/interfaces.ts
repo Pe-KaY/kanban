@@ -18,6 +18,7 @@ export interface Column {
 export interface Board {
   name: string;
   isActive: boolean;
+  id: string;
   columns: Column[];
 }
 
