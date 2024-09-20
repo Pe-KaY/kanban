@@ -40,7 +40,10 @@
 
       <!-- add task -->
       <div class="addtaskwrap">
-        <button class="forpc-btn" (click)="dataCenterService.toggleModal()">
+        <button
+          class="forpc-btn"
+          (click)="dataCenterService.addEditTaskModal()"
+        >
           +Add New Task
         </button>
         <!-- for mobile view -->
@@ -77,12 +80,20 @@
         <div class="boardlist">
           <!-- board names component on the sidebar render here -->
           <ng-container *ngFor="let board of boards">
-            <app-board-name [boardname]="board.name"></app-board-name>
+            <app-board-name
+              [board]="board"
+              [boardname]="board.name"
+            ></app-board-name>
           </ng-container>
           <!-- create board -->
           <div class="createboard">
             <!-- board svg -->
-            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg"><path d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z" fill="#828FA3"/></svg>
+            <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
+                fill="#828FA3"
+              />
+            </svg>
             <p>+Create New Board</p>
           </div>
         </div>
@@ -140,12 +151,26 @@
       </div>
     </div>
   </ng-container>
+
   <!-- Modals -->
   <div class="modal" [class.show]="dataCenterService.modal" #modal>
     <div class="modalcomponents">
       <!-- passes active board details to modals -->
       <ng-container *ngIf="activeBoard$ | async as board">
-        <app-add-edit-board [boardId]="board.id" [columnNames]="board.columns"></app-add-edit-board>
+        <!-- add edit board modal -->
+        <app-add-edit-board
+          *ngIf="dataCenterService.addEditBoard"
+        ></app-add-edit-board>
+
+        <!-- update task status and subtask -->
+        <app-sub-task *ngIf="dataCenterService.editSubTask"> </app-sub-task>
+
+        <!-- add edit task modal -->
+        <app-add-edit-task
+          *ngIf="dataCenterService.addEditTask"
+          [boardId]="board.id"
+          [columnNames]="board.columns"
+        ></app-add-edit-task>
       </ng-container>
     </div>
   </div>

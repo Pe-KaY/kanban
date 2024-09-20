@@ -1,1 +1,67 @@
-<p>add-edit-task works!</p>
+<div class="container">
+    <form [formGroup]="taskForm">
+      <h2>Add New Task</h2>
+      <div class="titlediv">
+        <label for="title">Title</label>
+        <input
+          id="title"
+          formControlName="title"
+          placeholder="e.g. Take coffee break"
+        />
+      </div>
+  
+      <div class="descriptiondiv">
+        <label for="description">Description</label>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="e.g. It’s always good to take a break. This 15 minute break will recharege the batteries a little "
+        ></textarea>
+      </div>
+  
+      <!-- subtask -->
+      <div formArrayName="subtasks">
+        <h4>Subtasks</h4>
+        <div
+          *ngFor="let subtask of subtasks.controls; let i = index"
+          [formGroupName]="i"
+          class="subtaskdiv"
+        >
+          <input
+            type="text"
+            placeholder="Subtask Title"
+            formControlName="title"
+          />
+          <button type="button" (click)="removeSubtask(i)">
+            <!-- remove subtask svg -->
+            <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+              <g fill="#828FA3" fill-rule="evenodd">
+                <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+                <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+              </g>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <button class="addsubtask-btn" type="button" (click)="addSubtask()">
+        Add Subtask
+      </button>
+  
+      <!-- status -->
+      <div class="statusdiv">
+        <label for="status">Status</label>
+        <select id="status" formControlName="status">
+          <!-- populate options using active Board column names -->
+          <ng-container *ngFor="let column of columnNames">
+            <option [value]="column.name">{{ column.name }}</option>
+          </ng-container>
+        </select>
+      </div>
+  
+      <!-- add task -->
+      <button (click)="addTask()" class="createtask-btn" type="submit">
+        Create Task
+      </button>
+    </form>
+  </div>
+  

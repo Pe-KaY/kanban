@@ -9,25 +9,30 @@ export const initialState: KanbanState = {
 export const kanbanReducer = createReducer(
   initialState,
 
+  // fetch all boards
   on(storeActions.fetchBoardsSuccess, (state, { boards }) => ({
     ...state,
     boards: boards,
   })),
 
+  // add board
   on(storeActions.addBoard, (state, { board }) => ({
     ...state,
     boards: [...state.boards, board],
   })),
-  on(storeActions.setActiveBoard, (state, { boardname }) => ({
+
+  // set active board
+  on(storeActions.setActiveBoard, (state, { boardId }) => ({
     ...state,
     boards: state.boards.map((board) => {
-      if (board.name === boardname) {
+      if (board.id === boardId) {
         return { ...board, isActive: true };
       } else {
         return { ...board, isActive: false };
       }
     }),
   })),
+
   //  add task
   on(storeActions.addTask, (state, { boardId, columnName, task }) => {
     // Find the target board
@@ -52,6 +57,41 @@ export const kanbanReducer = createReducer(
       return board;
     });
 
+    return { ...state, boards: updatedBoards };
+  }),
+
+  //task and subtasks update
+  on(storeActions.updateTask, (state, { boardId, columnName, task }) => {
+    const updatedBoards = state.boards.map((board) => {
+      if (board.id === boardId) {
+        const updatedColumns = board.columns.map((column) => {
+          // 1. If the column name matches and the status is unchanged, just update the task
+          if (column.name === columnName && columnName === task.status) {
+            const updatedTasks = column.tasks.map((t) =>
+              t.title === task.title ? { ...task } : t
+            );
+            return { ...column, tasks: updatedTasks };
+          }
+          // 2. If the column name matches but the status has changed, remove the task from this column
+          if (column.name === columnName && columnName !== task.status) {
+            return {
+              ...column,
+              tasks: column.tasks.filter((t) => t.title !== task.title),
+            };
+          }
+          // 3. Add the task to the new column based on the new status
+          if (column.name === task.status && columnName !== task.status) {
+            return {
+              ...column,
+              tasks: [...column.tasks, { ...task }], // Ensure the task is added with updated status
+            };
+          }
+          return column;
+        });
+        return { ...board, columns: updatedColumns };
+      }
+      return board;
+    });
     return { ...state, boards: updatedBoards };
   }),
 
