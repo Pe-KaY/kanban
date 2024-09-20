@@ -55,7 +55,7 @@
         <div class="editboardmenu">
           <!-- float menu -->
           <div class="floatmenu">
-            <p class="editboard">Edit board</p>
+            <p class="editboard" (click)="dataCenterService.editactiveBoard()">Edit board</p>
             <p class="deleteboard">Delete board</p>
           </div>
           <!-- edit board svg -->
@@ -86,7 +86,7 @@
             ></app-board-name>
           </ng-container>
           <!-- create board -->
-          <div class="createboard">
+          <div class="createboard" (click)="dataCenterService.createNewBoard()"> 
             <!-- board svg -->
             <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
               <path

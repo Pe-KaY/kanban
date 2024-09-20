@@ -1,5 +1,42 @@
 <div class="container">
   <form [formGroup]="taskForm">
+
+    <div class="titlewrap">
+      <p>{{ dataService.task.title }}</p>
+      <!-- edit svg -->
+      <svg width="5" height="20" xmlns="http://www.w3.org/2000/svg">
+        <g fill="#828FA3" fill-rule="evenodd">
+          <circle cx="2.308" cy="2.308" r="2.308" />
+          <circle cx="2.308" cy="10" r="2.308" />
+          <circle cx="2.308" cy="17.692" r="2.308" />
+        </g>
+      </svg>
+
+      <!-- float menu -->
+      <div class="editboardmenu">
+        <!-- float menu -->
+        <div class="floatmenu">
+          <p class="editboard" (click)="dataService.editTask()">Edit Task</p>
+          <p class="deleteboard">Delete Task</p>
+        </div>
+      </div>
+    </div>
+
+    <div formArrayName="subtasks">
+      <h4>Subtask ({{ completedSubtask }} out of {{ totalSubtask }})</h4>
+      <div
+        *ngFor="let subtask of subtasks.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <input type="text" formControlName="title" />
+        <label>
+          <input type="checkbox" formControlName="isCompleted" />
+          Completed
+        </label>
+      </div>
+    </div>
+
+    <!-- status -->
     <div>
       <label for="status">Task Status</label>
       <select
@@ -15,20 +52,6 @@
           {{ task.name }}
         </option>
       </select>
-    </div>
-
-    <div formArrayName="subtasks">
-      <h4>Subtasks</h4>
-      <div
-        *ngFor="let subtask of subtasks.controls; let i = index"
-        [formGroupName]="i"
-      >
-        <input type="text" formControlName="title" />
-        <label>
-          <input type="checkbox" formControlName="isCompleted" />
-          Completed
-        </label>
-      </div>
     </div>
 
     <button (click)="updateTask()">Update Task</button>

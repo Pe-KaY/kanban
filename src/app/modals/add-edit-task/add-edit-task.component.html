@@ -1,6 +1,6 @@
 <div class="container">
     <form [formGroup]="taskForm">
-      <h2>Add New Task</h2>
+      <h2>{{dataCenterService.editingTask ? 'Edit Task' : 'Add Task'}}</h2>
       <div class="titlediv">
         <label for="title">Title</label>
         <input
@@ -59,7 +59,7 @@
       </div>
   
       <!-- add task -->
-      <button (click)="addTask()" class="createtask-btn" type="submit">
+      <button (click)="addEditTask()" class="createtask-btn" type="submit">
         Create Task
       </button>
     </form>

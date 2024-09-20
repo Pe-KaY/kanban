@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as actions from '../../../store/store.actions';
 import { Store } from '@ngrx/store';
-import { Column, Task } from '../../../interfaces/interfaces';
+import { Board, Column, Task } from '../../../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -32,10 +32,32 @@ export class DataCenterService {
     this.confirmDelete = false;
   }
   // individual modals
+  editingTask = false;
+  // add edit task
+  editTask() {
+    this.editingTask = true;
+    this.editSubTask = false;
+    this.addEditTask = true;
+  }
+  addingTask() {
+    this.editingTask = false;
+    this.addEditTaskModal();
+  }
   addEditTaskModal() {
     this.resetModal();
     this.addEditTask = true;
     this.toggleModal();
+  }
+  // add edit board
+  board!: Board;
+  editBoard = false;
+  createNewBoard() {
+    this.editBoard = false;
+    this.addEditBoardModal();
+  }
+  editactiveBoard() {
+    this.editBoard = true;
+    this.addEditBoardModal();
   }
   addEditBoardModal() {
     this.resetModal();

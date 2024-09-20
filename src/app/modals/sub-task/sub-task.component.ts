@@ -29,8 +29,17 @@ export class SubTaskComponent {
   ) {}
 
   taskForm!: FormGroup;
+  totalSubtask!: number;
+  completedSubtask!: number;
 
   ngOnInit() {
+    // Calculate total subtasks
+    this.totalSubtask = this.dataService.task.subtasks.length;
+    // Calculate completed subtasks
+    this.completedSubtask = this.dataService.task.subtasks.filter(
+      (subtask) => subtask.isCompleted
+    ).length;
+
     this.taskForm = this.fb.group({
       status: [this.dataService.task, Validators.required], // Task status ('todo', 'doing', 'done')
       subtasks: this.fb.array([]), // Initialize form array for subtasks

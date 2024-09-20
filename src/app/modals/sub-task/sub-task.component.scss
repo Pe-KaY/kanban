@@ -1,1 +1,42 @@
- 
+@use "../../../mixins.scss";
+
+.container {
+  background-color: white;
+  border-radius: 1rem;
+  width: 30rem;
+  min-height: 50%;
+  margin: auto;
+  padding: 2rem;
+
+  .titlewrap {
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid blue;
+    font-weight: bold;
+    position: relative;
+
+    svg {
+      cursor: pointer;
+    }
+    .editboardmenu {
+      @include mixins.floatMenu();
+      top: 120%;
+      left: 75%;
+      .floatmenu {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        p {
+          font-weight: normal;
+          font-size: 0.8rem;
+          cursor: pointer;
+        }
+        .deleteboard {
+          color: red;
+        }
+      }
+    }
+  }
+}

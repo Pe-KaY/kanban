@@ -1,5 +1,6 @@
 @use "./../mixins.scss";
 
+
 .maincontainer {
   height: 100vh;
   overflow: hidden;
@@ -76,19 +77,8 @@
         }
 
         .floatmenu {
-          visibility: hidden;
-          background-color: white;
-          box-shadow: 0 10px 20px rgba(54, 78, 126, 0.25);
-          position: absolute;
-          width: 9rem;
-          height: 6rem;
-          top: 180%;
-          left: -9.5rem;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-evenly;
-          padding-inline-start: 1rem;
-          border-radius: 0.5rem;
+          // visibility: hidden;
+          @include mixins.floatMenu();
 
           p {
             font-size: 0.8rem;
@@ -248,8 +238,8 @@
     }
 
     .modalcomponents{
-      background-color: white;
-      width: 30rem;
+      place-content: center;
+      width: 40rem;
       height: 90%;
       overflow: auto;
       margin: auto;

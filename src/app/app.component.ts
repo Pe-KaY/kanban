@@ -57,7 +57,8 @@ export class AppComponent {
       map((boards) => boards[0]),
       // sets active board id and tasks in the service on inititalize
       tap((board) => (this.dataCenterService.currentBoardId = board.id)),
-      tap((board) => (this.dataCenterService.boardColumns = board.columns))
+      tap((board) => (this.dataCenterService.boardColumns = board.columns)),
+      tap((board) => (this.dataCenterService.board = board))
     );
   }
 
