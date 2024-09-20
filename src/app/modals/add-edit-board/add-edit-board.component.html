@@ -1,1 +1,36 @@
-<p>It works</p>
+<div class="container">
+  <form [formGroup]="boardForm" (ngSubmit)="onSubmit()">
+    <!-- Board Name -->
+    <div>
+      <label for="boardName">Board Name:</label>
+      <input id="boardName" formControlName="name" placeholder="Enter board name" />
+      <div *ngIf="boardForm.get('name')?.invalid && boardForm.get('name')?.touched">
+        Board name is required.
+      </div>
+    </div>
+  
+    <!-- Active Checkbox -->
+    <div>
+      <label>
+        <input type="checkbox" formControlName="isActive" /> Is Active
+      </label>
+    </div>
+  
+    <!-- Columns Section -->
+    <div formArrayName="columns">
+      <div *ngFor="let column of columns.controls; let i = index" [formGroupName]="i">
+        <label for="columnName{{ i }}">Column Name:</label>
+        <input id="columnName{{ i }}" formControlName="name" placeholder="Enter column name" />
+  
+        <button type="button" (click)="removeColumn(i)">Remove Column</button>
+      </div>
+    </div>
+  
+    <button type="button" (click)="addColumn()">Add Column</button>
+  
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="boardForm.invalid">
+      {{ dataCenterService.editBoard ? 'Update Board' : 'Add Board' }}
+    </button>
+  </form>
+</div>

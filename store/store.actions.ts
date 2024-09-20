@@ -23,6 +23,11 @@ export const addBoard = createAction(
   '[Kanban] Add Board',
   props<{ board: Board }>()
 );
+// update board
+export const updateBoard = createAction(
+  '[Kanban] Update Board',
+  props<{ board: Board }>()
+);
 
 // active board
 export const setActiveBoard = createAction(

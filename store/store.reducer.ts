@@ -20,6 +20,13 @@ export const kanbanReducer = createReducer(
     ...state,
     boards: [...state.boards, board],
   })),
+  // update board
+  on(storeActions.updateBoard, (state, { board }) => {
+    const updatedBoards = state.boards.map((b) =>
+      b.id === board.id ? { ...board } : b
+    );
+    return { ...state, boards: updatedBoards };
+  }),
 
   // set active board
   on(storeActions.setActiveBoard, (state, { boardId }) => ({
