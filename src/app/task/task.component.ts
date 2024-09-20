@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../../interfaces/interfaces';
+import { Column, Task } from '../../../interfaces/interfaces';
+// import data service
+import { DataCenterService } from '../service/data-center.service';
 
 @Component({
   selector: 'app-task',
@@ -9,7 +11,10 @@ import { Task } from '../../../interfaces/interfaces';
   styleUrl: './task.component.scss',
 })
 export class TaskComponent {
+  constructor(public dataCenterService: DataCenterService) {}
+
   @Input('task') task!: Task;
+  @Input('columName') columName!: string;
   completedTasks!: number;
 
   ngOnInit(): void {

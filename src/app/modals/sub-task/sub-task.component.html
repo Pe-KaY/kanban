@@ -1,1 +1,36 @@
-<p>sub-task works!</p>
+<div class="container">
+  <form [formGroup]="taskForm">
+    <div>
+      <label for="status">Task Status</label>
+      <select
+        id="status"
+        formControlName="status"
+        [ngModel]="dataService.columName"
+      >
+        <!-- loads current status in the task parent active Board -->
+        <option
+          *ngFor="let task of dataService.boardColumns"
+          [value]="task.name"
+        >
+          {{ task.name }}
+        </option>
+      </select>
+    </div>
+
+    <div formArrayName="subtasks">
+      <h4>Subtasks</h4>
+      <div
+        *ngFor="let subtask of subtasks.controls; let i = index"
+        [formGroupName]="i"
+      >
+        <input type="text" formControlName="title" />
+        <label>
+          <input type="checkbox" formControlName="isCompleted" />
+          Completed
+        </label>
+      </div>
+    </div>
+
+    <button (click)="updateTask()">Update Task</button>
+  </form>
+</div>

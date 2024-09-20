@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as actions from '../../../store/store.actions';
 import { Store } from '@ngrx/store';
+import { Column, Task } from '../../../interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -24,10 +25,50 @@ export class DataCenterService {
   toggleModal() {
     this.modal = !this.modal;
   }
+  resetModal() {
+    this.addEditBoard = false;
+    this.addEditTask = false;
+    this.editSubTask = false;
+    this.confirmDelete = false;
+  }
+  // individual modals
+  addEditTaskModal() {
+    this.resetModal();
+    this.addEditTask = true;
+    this.toggleModal();
+  }
+  addEditBoardModal() {
+    this.resetModal();
+    this.addEditBoard = true;
+    this.toggleModal();
+  }
+  // edit subtask
+  task!: Task;
+  columName!: string;
+  currentBoardId!: string;
+  boardColumns!: Column[];
+  editSubTaskModal(task: Task, columName: string) {
+    // set task and taskname
+    this.task = task;
+    this.columName = columName;
+
+    // open modal
+    this.resetModal();
+    this.editSubTask = true;
+    this.toggleModal();
+  }
+  confirmDeleteModal() {
+    this.resetModal();
+    this.confirmDelete = true;
+    this.toggleModal();
+  }
 
   // set active board
-  setActiveBoard(boardname: string) {
-    this.store.dispatch(actions.setActiveBoard({ boardname }));
+  setActiveBoard(boardId: string, boardTasks: Column[]) {
+    this.store.dispatch(actions.setActiveBoard({ boardId }));
+    // sets current board id and tasks
+    this.currentBoardId = boardId;
+    this.boardColumns = boardTasks;
   }
 
   // Id generator
