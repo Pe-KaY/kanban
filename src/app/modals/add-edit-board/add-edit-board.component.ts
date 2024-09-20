@@ -29,6 +29,7 @@ export class AddEditBoardComponent {
   ) {}
 
   boardForm!: FormGroup;
+  completedSubtask = 0;
 
   ngOnInit(): void {
     // Determine if it's edit mode based on the input
@@ -55,6 +56,9 @@ export class AddEditBoardComponent {
         columns: this.fb.array([]),
       });
     }
+
+    // Add default columns for new boards
+    !this.dataCenterService.editBoard && this.addDefaultColumns();
   }
 
   // Getter for columns FormArray
@@ -69,6 +73,18 @@ export class AddEditBoardComponent {
       tasks: this.fb.array([]), // Initially empty
     });
     this.columns.push(columnGroup);
+  }
+  // Add default columns for new boards
+  addDefaultColumns(): void {
+    const defaultColumns = ['Todo', 'Doing'];
+
+    defaultColumns.forEach((columnName) => {
+      const columnGroup = this.fb.group({
+        name: [columnName, Validators.required],
+        tasks: this.fb.array([]), // Empty task array for now
+      });
+      this.columns.push(columnGroup);
+    });
   }
 
   // Remove a column

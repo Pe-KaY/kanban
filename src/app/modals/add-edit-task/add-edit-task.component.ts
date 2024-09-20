@@ -15,14 +15,14 @@ import { DataCenterService } from '../../service/data-center.service';
 // import store
 import { Store } from '@ngrx/store';
 // import actions
-import { addTask } from '../../../../store/store.actions';
+import { addTask, updateTask } from '../../../../store/store.actions';
 
 @Component({
   selector: 'app-add-edit-task',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './add-edit-task.component.html',
-  styleUrl: './add-edit-task.component.scss'
+  styleUrl: './add-edit-task.component.scss',
 })
 export class AddEditTaskComponent {
   taskForm!: FormGroup;
@@ -35,30 +35,44 @@ export class AddEditTaskComponent {
   constructor(
     private fb: FormBuilder,
     private store: Store,
-    private dataCenterService: DataCenterService
+    public dataCenterService: DataCenterService
   ) {}
 
   // inputs
 
   ngOnInit(): void {
-    this.taskForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      status: ['todo', Validators.required], // Default status, could be 'todo', 'in-progress', etc.
-      subtasks: this.fb.array([]), // Initialize the form array for subtasks
-    });
-
-    // Optionally add a default subtask on init
-    this.addSubtask();
-    // calculates completed subtasks
-    
+    // Initialize the form for editing task
+    if (this.dataCenterService.editingTask) {
+      this.taskForm = this.fb.group({
+        title: [this.dataCenterService.task?.title, Validators.required],
+        description: [
+          this.dataCenterService.task?.description,
+          Validators.required,
+        ],
+        status: [this.dataCenterService.task?.status, Validators.required], // Default status if adding new
+        subtasks: this.fb.array([]), // Initialize the form array for subtasks
+      });
+      // Populate the form array with the current task subtasks
+      this.populateSubtasks();
+    } else {
+      // Initialize the form for new task
+      this.taskForm = this.fb.group({
+        title: ['', Validators.required],
+        description: ['', Validators.required],
+        status: ['todo', Validators.required], // Default status, could be 'todo', 'in-progress', etc.
+        subtasks: this.fb.array([]), // Initialize the form array for subtasks
+      });
+      // Optionally add a default subtask for new tasks
+      this.addSubtask();
+    }
   }
 
+  // subtasks getter
   get subtasks(): FormArray {
     return this.taskForm.get('subtasks') as FormArray;
   }
 
-  // add task to the form array
+  // adds subtask to new forms
   addSubtask(): void {
     const subtaskGroup = this.fb.group({
       title: ['', Validators.required],
@@ -70,26 +84,60 @@ export class AddEditTaskComponent {
   removeSubtask(index: number): void {
     this.subtasks.removeAt(index);
   }
+  // Populate subtasks for edit mode
+  populateSubtasks(): void {
+    if (this.dataCenterService.editingTask) {
+      this.dataCenterService.task.subtasks.forEach((subtask) => {
+        const subtaskGroup = this.fb.group({
+          title: [subtask.title, Validators.required],
+          isCompleted: [subtask.isCompleted],
+        });
+        this.subtasks.push(subtaskGroup);
+      });
+    }
+  }
 
-  addTask(): void {
+  // Handle adding or updating the task
+  addEditTask(): void {
     if (this.taskForm.valid) {
-      const newTask: Task = this.taskForm.value;
-
+      const task: Task = this.taskForm.value;
+      const originalColumn = this.dataCenterService.columName;
       this.columnName = this.taskForm.get('status')?.value;
-      // Dispatch the addTask action with boardId, columnName, and newTask
+      if (this.dataCenterService.editingTask) {
+        // Dispatch updateTask action if editing
+        this.store.dispatch(
+          updateTask({
+            boardId: this.boardId,
+            columnName: this.columnName,
+            task: task,
+          })
+        );
+      } else {
+        // Dispatch addTask action if adding
+        this.store.dispatch(
+          addTask({
+            boardId: this.boardId,
+            columnName: this.columnName,
+            task: task,
+          })
+        );
+        // Clear the form
+        this.taskForm.reset();
+        // Hide the modal
+        this.dataCenterService.toggleModal();
+      }
+      // update task status column if changed
       this.store.dispatch(
-        addTask({
+        updateTask({
           boardId: this.boardId,
-          columnName: this.columnName,
-          task: newTask,
+          columnName: originalColumn,
+          task: task,
         })
       );
-      console.log(this.taskForm.value);
       // Clear the form
       this.taskForm.reset();
-      // hide the modal
+      // Hide the modal
       this.dataCenterService.toggleModal();
     }
   }
-  
 }

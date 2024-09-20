@@ -32,6 +32,17 @@ export class DataCenterService {
     this.confirmDelete = false;
   }
   // individual modals
+  editingTask = false;
+  // add edit task
+  editTask() {
+    this.editingTask = true;
+    this.editSubTask = false;
+    this.addEditTask = true;
+  }
+  addingTask() {
+    this.editingTask = false;
+    this.addEditTaskModal();
+  }
   addEditTaskModal() {
     this.resetModal();
     this.addEditTask = true;
