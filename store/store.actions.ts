@@ -65,10 +65,6 @@ export const deleteTask = createAction(
 
 // drag and drop
 export const moveTask = createAction(
-  '[Kanban] Move Task',
-  props<{
-    taskTitle: string;
-    sourceColumnName: string;
-    targetColumnName: string;
-  }>()
+  '[Task] Move Task',
+  props<{ taskTitle: string; sourceColumnName: string; targetColumnName: string }>()
 );
