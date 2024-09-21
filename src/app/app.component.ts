@@ -20,6 +20,7 @@ import { map, Observable, tap } from 'rxjs';
 import { DataCenterService } from './service/data-center.service';
 import { AddEditBoardComponent } from './modals/add-edit-board/add-edit-board.component';
 import { SubTaskComponent } from './modals/sub-task/sub-task.component';
+import { DeleteComponent } from "./modals/delete/delete.component";
 
 @Component({
   selector: 'app-root',
@@ -32,7 +33,8 @@ import { SubTaskComponent } from './modals/sub-task/sub-task.component';
     AddEditTaskComponent,
     AddEditBoardComponent,
     SubTaskComponent,
-  ],
+    DeleteComponent
+],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
@@ -65,9 +67,10 @@ export class AppComponent {
   ngAfterViewInit() {
     this.modal.nativeElement.addEventListener('click', (event: Event) => {
       // close modal on outside click
-      if (event.target === this.modal.nativeElement){
+      if (event.target === this.modal.nativeElement) {
         this.dataCenterService.toggleModal();
-        this.dataCenterService.resetModal()
+        this.dataCenterService.resetModal();
+        this.dataCenterService.editingTask = false;
       }
     });
   }

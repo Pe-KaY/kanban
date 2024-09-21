@@ -1,6 +1,5 @@
 @use "./../mixins.scss";
 
-
 .maincontainer {
   height: 100vh;
   overflow: hidden;
@@ -227,23 +226,39 @@
   }
 
   // modal
-  .modal{
+  .modal {
     position: absolute;
     inset: 0;
     background-color: rgba(0, 0, 0, 0.516);
     place-content: center;
     display: none;
-    &.show{
+    &.show {
       display: block;
     }
 
-    .modalcomponents{
+    .modalcomponents {
       place-content: center;
       width: 40rem;
       height: 90%;
       overflow: auto;
       margin: auto;
       z-index: 99;
+    }
+  }
+
+  .noboards {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    p {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    .forpc-btn {
+      @include mixins.button(#635fc7);
     }
   }
 }
