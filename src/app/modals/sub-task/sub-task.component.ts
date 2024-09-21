@@ -77,7 +77,7 @@ export class SubTaskComponent {
         boardId: this.dataService.currentBoardId,
         columnName: this.dataService.columName,
         task: updatedTask,
-      })
+      }) 
     );
 
     // resets form

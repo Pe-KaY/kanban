@@ -125,14 +125,7 @@ export class AddEditTaskComponent {
         // // Hide the modal
         // this.dataCenterService.toggleModal();
       }
-      // update task status column if changed
-      this.store.dispatch(  
-        updateTask({
-          boardId: this.boardId,
-          columnName: originalColumn,
-          task: task,
-        })
-      );
+      
 
       // reset editing state
       this.dataCenterService.editingTask = false;

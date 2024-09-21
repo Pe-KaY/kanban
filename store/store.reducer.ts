@@ -164,32 +164,30 @@ export const kanbanReducer = createReducer(
         const updatedColumns = board.columns.map((column) => {
           if (column.name === sourceColumnName) {
             // Find and remove the task from the source column
-            const tasksToRemove = column.tasks.filter(
+            const taskIndex = column.tasks.findIndex(
               (task) => task.title === taskTitle
             );
-            if (tasksToRemove.length > 0) {
-              taskToMove = tasksToRemove[0];
+            if (taskIndex !== -1) {
+              taskToMove = { ...column.tasks[taskIndex] }; // Copy the task
             }
             return {
               ...column,
-              tasks: column.tasks.filter((task) => task.title !== taskTitle),
+              tasks: column.tasks.filter((task) => task.title !== taskTitle), // Remove task from source
             };
           }
 
-          if (column.name === targetColumnName) {
-            if (taskToMove) {
-              // Add the task to the target column
-              return {
-                ...column,
-                tasks: [
-                  ...column.tasks,
-                  {
-                    ...taskToMove,
-                    status: targetColumnName,
-                  },
-                ],
-              };
-            }
+          if (column.name === targetColumnName && taskToMove) {
+            // Add the task to the target column with updated status
+            return {
+              ...column,
+              tasks: [
+                ...column.tasks,
+                {
+                  ...taskToMove,
+                  status: targetColumnName, // Update the status to the new column
+                },
+              ],
+            };
           }
 
           return column;
