@@ -35,6 +35,12 @@ export const setActiveBoard = createAction(
   props<{ boardId: string }>()
 );
 
+// delete board
+export const deleteBoard = createAction(
+  '[Board] Delete Board',
+  props<{ boardId: string }>()
+);
+
 // add task
 export const addTask = createAction(
   '[Kanban] Add Task',
@@ -49,6 +55,12 @@ export const addTask = createAction(
 export const updateTask = createAction(
   '[Kanban] Update Task or subTask',
   props<{ boardId: string; columnName: string; task: Task }>()
+);
+
+// Delete task
+export const deleteTask = createAction(
+  '[Task] Delete Task',
+  props<{ boardId: string; columnName: string; taskTitle: string }>()
 );
 
 // drag and drop

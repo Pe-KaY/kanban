@@ -15,6 +15,16 @@ export class DataCenterService {
     this.isDarkMode = !this.isDarkMode;
   }
 
+  //  toggles edit delete task/board float menu
+  editBoardMenu = false;
+  editTaskMenu = false;
+  toggleBoardMenu() {
+    this.editBoardMenu = !this.editBoardMenu;
+  }
+  toggleTaskMenu() {
+    this.editTaskMenu = !this.editTaskMenu;
+  }
+
   // modals
   modal = false;
   // modal types
@@ -32,8 +42,8 @@ export class DataCenterService {
     this.confirmDelete = false;
   }
   // individual modals
-  editingTask = false;
   // add edit task
+  editingTask = false;
   editTask() {
     this.editingTask = true;
     this.editSubTask = false;
@@ -79,10 +89,23 @@ export class DataCenterService {
     this.editSubTask = true;
     this.toggleModal();
   }
+  // confirm delete modal
+  deletingBoard = false;
+  deletingTask = false;
+  deleteBoard() {
+    this.deletingBoard = true;
+    this.deletingTask = false;
+    this.confirmDeleteModal();
+    this.modal = true;
+  }
+  deleteTask() {
+    this.deletingTask = true;
+    this.deletingBoard = false;
+    this.confirmDeleteModal();
+  }
   confirmDeleteModal() {
     this.resetModal();
     this.confirmDelete = true;
-    this.toggleModal();
   }
 
   // set active board

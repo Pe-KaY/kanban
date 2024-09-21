@@ -1,1 +1,24 @@
-<p>delete works!</p>
+<div class="container">
+  <h3>Delete this {{ dataService.deletingBoard ? "Board" : "Task" }}?</h3>
+
+  <!-- deleting board message -->
+  <ng-container *ngIf="dataService.deletingBoard">
+    <p>
+      Are you sure you want to delete the ‘{{ dataService.board.name }}’ board?
+      This action will remove all columns and tasks and cannot be reversed.
+    </p>
+  </ng-container>
+
+  <!-- deleting task message -->
+  <ng-container *ngIf="dataService.deletingTask">
+    <p>
+      Are you sure you want to delete the ‘{{ dataService.task.title }}’ task
+      and its subtasks? This action cannot be reversed.
+    </p>
+  </ng-container>
+
+  <div class="btnwrap">
+    <button class="deletebtn" (click)="delete()">Delete</button>
+    <button class="cancelbtn">Cancel</button>
+  </div>
+</div>

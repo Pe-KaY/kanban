@@ -16,10 +16,22 @@ export const kanbanReducer = createReducer(
   })),
 
   // add board
-  on(storeActions.addBoard, (state, { board }) => ({
-    ...state,
-    boards: [...state.boards, board],
-  })),
+  on(storeActions.addBoard, (state, { board }) => {
+    const updatedBoards = [...state.boards, { ...board, isActive: false }];
+    // Check if it's the only board, set isActive: true if so
+    const boardsWithActiveStatus =
+      updatedBoards.length === 1
+        ? updatedBoards.map((b, index) => ({
+            ...b,
+            isActive: index === 0, // Set first board as active
+          }))
+        : updatedBoards;
+
+    return {
+      ...state,
+      boards: boardsWithActiveStatus,
+    };
+  }),
   // update board
   on(storeActions.updateBoard, (state, { board }) => {
     const updatedBoards = state.boards.map((b) =>
@@ -39,6 +51,26 @@ export const kanbanReducer = createReducer(
       }
     }),
   })),
+
+  // delete board
+  on(storeActions.deleteBoard, (state, { boardId }) => {
+    // Filter out the deleted board
+    const updatedBoards = state.boards.filter((board) => board.id !== boardId);
+
+    // If there are still boards left, set the first one to isActive: true
+    const boardsWithActiveStatus =
+      updatedBoards.length > 0
+        ? updatedBoards.map((board, index) => ({
+            ...board,
+            isActive: index === 0, // Set first board as active, others inactive
+          }))
+        : [];
+
+    return {
+      ...state,
+      boards: boardsWithActiveStatus,
+    };
+  }),
 
   //  add task
   on(storeActions.addTask, (state, { boardId, columnName, task }) => {
@@ -91,6 +123,26 @@ export const kanbanReducer = createReducer(
             return {
               ...column,
               tasks: [...column.tasks, { ...task }], // Ensure the task is added with updated status
+            };
+          }
+          return column;
+        });
+        return { ...board, columns: updatedColumns };
+      }
+      return board;
+    });
+    return { ...state, boards: updatedBoards };
+  }),
+
+  // delete task
+  on(storeActions.deleteTask, (state, { boardId, columnName, taskTitle }) => {
+    const updatedBoards = state.boards.map((board) => {
+      if (board.id === boardId) {
+        const updatedColumns = board.columns.map((column) => {
+          if (column.name === columnName) {
+            return {
+              ...column,
+              tasks: column.tasks.filter((task) => task.title !== taskTitle),
             };
           }
           return column;
