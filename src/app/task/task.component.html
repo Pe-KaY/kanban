@@ -1,4 +1,8 @@
-<div class="container" (click)="dataCenterService.editSubTaskModal(task,columName)">
-  <p class="taskname">{{task.title}}</p>
-  <p> {{completedTasks}} of {{task.subtasks.length}} subtasks</p>
-</div> 
+<div
+  class="container"
+  (click)="dataCenterService.editSubTaskModal(task, columName)"
+  #container
+>
+  <p class="taskname">{{ task.title }}</p>
+  <p>{{ completedTasks }} of {{ task.subtasks.length }} subtasks</p>
+</div>
