@@ -29,16 +29,18 @@
     </div>
 
     <div formArrayName="subtasks">
+      <p>{{ dataService.task.description }}</p>
       <h4>Subtask ({{ completedSubtask }} out of {{ totalSubtask }})</h4>
       <div
         *ngFor="let subtask of subtasks.controls; let i = index"
         [formGroupName]="i"
       >
-        <input type="text" formControlName="title" />
-        <label>
-          <input type="checkbox" formControlName="isCompleted" />
-          Completed
-        </label>
+        <input
+          type="checkbox"
+          formControlName="isCompleted"
+          (change)="updateSubtask()"
+        />
+        <p class="subTask-name">{{ subtask.get("title")?.value }}</p>
       </div>
     </div>
 
@@ -59,7 +61,5 @@
         </option>
       </select>
     </div>
-
-    <button (click)="updateTask()">Update Task</button>
   </form>
 </div>

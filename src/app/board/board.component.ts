@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 // import task component
 import { TaskComponent } from '../task/task.component';
 import { Column } from '../../../interfaces/interfaces';
-import { deleteTask, moveTask, updateTask } from '../../../store/store.actions';
+import { deleteTask, updateTask } from '../../../store/store.actions';
 import { Store } from '@ngrx/store';
 import { DataCenterService } from '../service/data-center.service';
 

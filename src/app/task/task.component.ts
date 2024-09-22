@@ -27,10 +27,6 @@ export class TaskComponent {
   ngAfterViewInit(): void {
     this.container.nativeElement.addEventListener('mousedown', () => {
       this.dataCenterService.task = this.task;
-      // console.log(
-      //   this.dataCenterService.task.title,
-      //   this.dataCenterService.columName
-      // );
     });
   }
 }
