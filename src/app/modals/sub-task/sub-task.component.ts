@@ -53,24 +53,29 @@ export class SubTaskComponent {
     return this.taskForm.get('subtasks') as FormArray;
   }
 
+  // adds task subtask
   populateSubtasks(): void {
     this.dataService.task.subtasks.forEach((subtask) => {
       this.subtasks.push(
         this.fb.group({
-          title: [subtask.title, Validators.required],
+          title: [subtask.title],
           isCompleted: [subtask.isCompleted],
         })
       );
     });
   }
 
-  updateTask(): void {
+  // update subtask in realtime
+  updateSubtask() {
     const updatedTask: Task = {
       ...this.dataService.task,
       status: this.taskForm.value.status,
       subtasks: this.taskForm.value.subtasks, // Updated subtasks
     };
-
+    // Calculate completed subtasks
+    this.completedSubtask = updatedTask.subtasks.filter(
+      (subtask) => subtask.isCompleted
+    ).length;
     // Dispatch action to update the task
     this.store.dispatch(
       updateTask({
@@ -79,10 +84,29 @@ export class SubTaskComponent {
         task: updatedTask,
       }) 
     );
+  }
 
+  // update subtask and status
+  updateTask(): void {
+    const updatedTask: Task = {
+      ...this.dataService.task,
+      status: this.taskForm.value.status,
+      subtasks: this.taskForm.value.subtasks, // Updated subtasks
+    };
+    // Dispatch action to update the task
+    this.store.dispatch(
+      updateTask({
+        boardId: this.dataService.currentBoardId,
+        columnName: this.dataService.columName,
+        task: updatedTask,
+      })
+    );
     // resets form
     this.taskForm.reset();
-    this.dataService.resetModal();
-    this.dataService.toggleModal();
+  }
+
+  // updates subtask and status on destroy
+  ngOnDestroy() {
+    this.updateTask();
   }
 }

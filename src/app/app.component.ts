@@ -74,7 +74,6 @@ export class AppComponent {
       }
     });
   }
-
   // hide sidebar
   hideBar = false;
   hideSidebar() {
