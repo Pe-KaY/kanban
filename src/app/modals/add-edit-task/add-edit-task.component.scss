@@ -1,9 +1,10 @@
 // import mixins
-@use "../../../mixins/mixins.scss";
+@use "../../../mixins.scss";
 
 .container {
-  border: 1px solid purple;
+  background-color: white;
   height: 100%;
+  border-radius: 0.5rem;
 
   // form
   form {
@@ -13,23 +14,26 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    overflow-y: auto;
 
     div {
       input {
-        display: block;
-        width: 100%;
-        height: 3rem;
+        @include mixins.forminput();
+      }
+
+      h5 {
+        color: #828fa3;
       }
 
       textarea {
+        @include mixins.forminput();
+        resize: none;
         display: block;
         width: 100%;
         height: 9rem;
       }
     }
     .subtaskdiv {
-    //   border: 1px solid red;
+      //   border: 1px solid red;
       display: flex;
       gap: 1rem;
       margin-block-end: 0.5rem;
@@ -43,17 +47,21 @@
 
     .addsubtask-btn {
       @include mixins.formbutton();
+      @include mixins.addtaskorsubtask-btn();
     }
 
-    .statusdiv { 
+    .statusdiv {
       select {
+        @include mixins.forminput();
         width: 100%;
         height: 3rem;
+        background-color: transparent;
       }
     }
 
     .createtask-btn {
       @include mixins.formbutton();
+      @include mixins.savetaskorboard-btn();
     }
   }
 }

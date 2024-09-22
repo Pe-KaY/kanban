@@ -1,5 +1,5 @@
 .container {
-  border: 1px solid orange;
+  background-color: white;
   min-height: 6rem;
   display: flex;
   flex-direction: column;
@@ -9,8 +9,20 @@
   box-shadow: 0 4px 6px rgba(54, 78, 126, 0.102);
   cursor: pointer;
 
+  &:hover {
+    .taskname {
+      color: #635fc7;
+    }
+  }
+
   .taskname {
     font-weight: bold;
     font-size: 0.9rem;
+  }
+
+  .subtasks {
+    font-size: 0.8rem;
+    font-weight: bold;
+    color: #828fa3;
   }
 }

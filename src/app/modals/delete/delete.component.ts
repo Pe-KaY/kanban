@@ -16,6 +16,7 @@ import { deleteBoard, deleteTask } from '../../../../store/store.actions';
 export class DeleteComponent {
   constructor(public dataService: DataCenterService, private store: Store) {}
 
+  //  handles deleting task or board
   delete(): void {
     // deleting board
     if (this.dataService.deletingBoard) {

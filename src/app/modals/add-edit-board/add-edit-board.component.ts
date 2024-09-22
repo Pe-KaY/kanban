@@ -114,5 +114,10 @@ export class AddEditBoardComponent {
         this.store.dispatch(addBoard({ board: newBoard }));
       }
     }
+
+    // Clear the form
+    this.boardForm.reset();
+    // Hide the modal
+    this.dataCenterService.toggleModal();
   }
 }

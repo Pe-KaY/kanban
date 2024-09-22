@@ -154,13 +154,13 @@
           height: 2rem;
           color: #635fc7;
           font-weight: bold;
-          transition: background-color 0.3s ;
+          transition: background-color 0.3s;
 
           &:hover {
-            background-color: #EFEFF9;
+            background-color: #efeff9;
           }
 
-          svg{
+          svg {
             fill: #635fc7;
           }
         }
@@ -175,8 +175,8 @@
 
         // theme
         .theme {
+          background-color: #f4f7fd;
           width: 80%;
-          border: 1px solid blue;
           height: 3rem;
           margin: auto;
           border-radius: 0.5rem;
@@ -199,11 +199,12 @@
             border-radius: 100vw;
             background-color: #635fc7;
             cursor: pointer;
+            padding: 0.2rem;
 
             span {
               display: block;
-              width: 1.5rem;
-              height: 1.5rem;
+              width: 1.3rem;
+              height: 1.3rem;
               border-radius: 100vw;
               background-color: white;
             }
@@ -213,6 +214,13 @@
         .hidesidebar {
           @include mixins.board;
           cursor: pointer;
+          color: #828fa3;
+          font-weight: bold;
+          transition: background-color 0.3s;
+          &:hover {
+            background-color: #efeff9;
+            color: #635fc7;
+          }
         }
       }
     }
@@ -269,15 +277,15 @@
     background-color: rgba(0, 0, 0, 0.516);
     place-content: center;
     display: none;
+    overflow: auto;
     &.show {
       display: block;
     }
 
     .modalcomponents {
       place-content: center;
-      width: 40rem;
-      height: 90%;
-      overflow: auto;
+      width: 30rem;
+      min-height: fit-content;
       margin: auto;
       z-index: 99;
     }

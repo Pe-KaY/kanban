@@ -162,7 +162,7 @@
               <ng-container *ngFor="let column of board.columns">
                 <app-board [column]="column" class="columns"></app-board>
               </ng-container>
-              <div class="columns">
+              <div class="columns" (click)="dataCenterService.editactiveBoard()">
                 <div class="newcolumn">+ New Column</div>
               </div>
             </ng-container>

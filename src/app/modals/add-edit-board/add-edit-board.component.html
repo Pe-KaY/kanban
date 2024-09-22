@@ -1,38 +1,44 @@
 <div class="container">
   <form [formGroup]="boardForm" (ngSubmit)="onSubmit()">
     <!-- Board Name -->
-     <h1>{{ dataCenterService.editBoard ? "Edit Board" : "Add Board" }}</h1>
+    <h2>{{ dataCenterService.editBoard ? "Edit Board" : "Add Board" }}</h2>
     <div>
-      <label for="boardName">Board Name:</label>
+      <h5>Name</h5>
       <input
         id="boardName"
         formControlName="name"
-        placeholder="Enter board name"
+        placeholder="e.g. Web Design"
       />
     </div>
 
     <!-- Columns Section -->
-    <div formArrayName="columns">
+    <div formArrayName="columns" class="columns">
+      <h5>Columns</h5>
       <div
+      class="columndiv"
         *ngFor="let column of columns.controls; let i = index"
         [formGroupName]="i"
       >
-        <label for="columnName{{ i }}">Column Name:</label>
-        <input
-          id="columnName{{ i }}"
-          formControlName="name"
-          placeholder="Enter column name"
-        />
+        <input formControlName="name" placeholder="Enter column name" />
 
-        <button type="button" (click)="removeColumn(i)">Remove Column</button>
-      </div>
+        <button class="removecolumn" type="button" (click)="removeColumn(i)">
+          <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
+            <g fill="#828FA3" fill-rule="evenodd">
+              <path d="m12.728 0 2.122 2.122L2.122 14.85 0 12.728z" />
+              <path d="M0 2.122 2.122 0 14.85 12.728l-2.122 2.122z" />
+            </g>
+          </svg>
+        </button>
+      </div> 
     </div>
 
-    <button type="button" (click)="addColumn()">Add Column</button>
+    <div class="buttonswrap">
+      <button class="addnewcolumn-btn" type="button" (click)="addColumn()">+Add New Column</button>
 
-    <!-- Submit Button -->
-    <button type="submit" [disabled]="boardForm.invalid">
-      {{ dataCenterService.editBoard ? "Update Board" : "Add Board" }}
-    </button>
+      <!-- Submit Button -->
+      <button class="savecreate-btn" type="submit" [disabled]="boardForm.invalid">
+        {{ dataCenterService.editBoard ? "Save Changes" : "Create New Board" }}
+      </button>
+    </div>
   </form>
 </div>
