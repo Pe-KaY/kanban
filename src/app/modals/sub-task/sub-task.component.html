@@ -28,10 +28,16 @@
       </div>
     </div>
 
-    <div formArrayName="subtasks">
-      <p>{{ dataService.task.description }}</p>
-      <h4>Subtask ({{ completedSubtask }} out of {{ totalSubtask }})</h4>
+    <!-- description -->
+    <p class="description">{{ dataService.task.description }}</p>
+
+    <!-- subtasks -->
+    <div formArrayName="subtasks" class="subtasks">
+      <p class="completedtext">
+        Subtask ({{ completedSubtask }} out of {{ totalSubtask }})
+      </p>
       <div
+        class="subtaskwrap"
         *ngFor="let subtask of subtasks.controls; let i = index"
         [formGroupName]="i"
       >
@@ -40,13 +46,18 @@
           formControlName="isCompleted"
           (change)="updateSubtask()"
         />
-        <p class="subTask-name">{{ subtask.get("title")?.value }}</p>
+        <p
+          [class.ticked]="subtask.get('isCompleted')?.value"
+          class="subTask-name"
+        >
+          {{ subtask.get("title")?.value }}
+        </p>
       </div>
     </div>
 
     <!-- status -->
-    <div>
-      <label for="status">Task Status</label>
+    <div class="statuswrap">
+      <p class="currentstats-text">Current Status</p>
       <select
         id="status"
         formControlName="status"

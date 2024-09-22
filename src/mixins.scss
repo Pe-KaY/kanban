@@ -35,3 +35,48 @@
   padding-inline-start: 1rem;
   border-radius: 0.5rem;
 }
+
+@mixin forminput {
+  display: inline-block;
+  width: 95%;
+  height: 3rem;
+  border: 1px solid rgba(130, 143, 163, 0.25);
+  cursor: pointer;
+  padding-inline-start: 1rem;
+  font-weight: 400;
+  &::placeholder {
+    color: #828fa3;
+  }
+}
+
+@mixin formbutton{
+  display: block;
+  height: 3rem;
+  background-color: transparent;
+  border-radius: 100vw;
+  border: none;
+  cursor: pointer;
+}
+
+@mixin addtaskorsubtask-btn {
+
+  background-color: #f0effa;
+  color: #7571cd;
+  font-weight: bold;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #d8d7f1;
+  }
+}
+
+@mixin savetaskorboard-btn{
+  background-color: #635fc7;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #a8a4ff;
+  }
+}
