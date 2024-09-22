@@ -1,5 +1,16 @@
 @use "../../mixins.scss";
 
-.board{
-    @include mixins.board();
+.board {
+  @include mixins.board();
+  color: #828fa3;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  &.isActive {
+    background-color: #635fc7;
+    color: white;
+  }
+  &:hover {
+    background-color: #efeff9;
+    color: #635fc7;
+  }
 }

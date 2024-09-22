@@ -51,6 +51,9 @@ export class BoardComponent {
       // Check if the task is being dragged from the same column
       if (sourceColumnName === this.column.name) return;
       // Dispatch the moveTask action to move the task between columns
+
+      console.log('working');
+
       this.store.dispatch(
         updateTask({
           boardId: this.dataCenterService.currentBoardId,
