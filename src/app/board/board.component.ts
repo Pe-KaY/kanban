@@ -47,20 +47,20 @@ export class BoardComponent {
     const data = event.dataTransfer?.getData('text/plain');
     if (data) {
       const { taskTitle, sourceColumnName } = JSON.parse(data);
+
       // Check if the task is being dragged from the same column
       if (sourceColumnName === this.column.name) return;
       // Dispatch the moveTask action to move the task between columns
       this.store.dispatch(
         updateTask({
           boardId: this.dataCenterService.currentBoardId,
-          columnName: this.dataCenterService.columName,
+          columnName: sourceColumnName,
           task: {
             ...this.dataCenterService.task,
             status: this.column.name,
           },
         })
       );
-
       // Delete task from previous column
       this.store.dispatch(
         deleteTask({
