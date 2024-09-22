@@ -152,53 +152,5 @@ export const kanbanReducer = createReducer(
       return board;
     });
     return { ...state, boards: updatedBoards };
-  }),
-
-  // drag and drop
-  on(
-    storeActions.moveTask,
-    (state, { taskTitle, sourceColumnName, targetColumnName }) => {
-      let taskToMove: Task | undefined;
-
-      const updatedBoards = state.boards.map((board) => {
-        const updatedColumns = board.columns.map((column) => {
-          if (column.name === sourceColumnName) {
-            // Find and remove the task from the source column
-            const tasksToRemove = column.tasks.filter(
-              (task) => task.title === taskTitle
-            );
-            if (tasksToRemove.length > 0) {
-              taskToMove = tasksToRemove[0];
-            }
-            return {
-              ...column,
-              tasks: column.tasks.filter((task) => task.title !== taskTitle),
-            };
-          }
-
-          if (column.name === targetColumnName) {
-            if (taskToMove) {
-              // Add the task to the target column
-              return {
-                ...column,
-                tasks: [
-                  ...column.tasks,
-                  {
-                    ...taskToMove,
-                    status: targetColumnName,
-                  },
-                ],
-              };
-            }
-          }
-
-          return column;
-        });
-
-        return { ...board, columns: updatedColumns };
-      });
-
-      return { ...state, boards: updatedBoards };
-    }
-  )
+  })
 );

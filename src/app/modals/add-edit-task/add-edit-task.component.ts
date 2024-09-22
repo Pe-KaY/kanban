@@ -45,9 +45,7 @@ export class AddEditTaskComponent {
     if (this.dataCenterService.editingTask) {
       this.taskForm = this.fb.group({
         title: [this.dataCenterService.task?.title, Validators.required],
-        description: [
-          this.dataCenterService.task?.description
-        ],
+        description: [this.dataCenterService.task?.description],
         status: [this.dataCenterService.task?.status, Validators.required], // Default status if adding new
         subtasks: this.fb.array([]), // Initialize the form array for subtasks
       });
@@ -107,7 +105,7 @@ export class AddEditTaskComponent {
         this.store.dispatch(
           updateTask({
             boardId: this.boardId,
-            columnName: this.columnName,
+            columnName: originalColumn,
             task: task,
           })
         );
@@ -120,23 +118,11 @@ export class AddEditTaskComponent {
             task: task,
           })
         );
-        // // Clear the form
-        // this.taskForm.reset();
-        // // Hide the modal
-        // this.dataCenterService.toggleModal();
       }
-      // update task status column if changed
-      this.store.dispatch(  
-        updateTask({
-          boardId: this.boardId,
-          columnName: originalColumn,
-          task: task,
-        })
-      );
 
       // reset editing state
       this.dataCenterService.editingTask = false;
-      
+
       // Clear the form
       this.taskForm.reset();
       // Hide the modal

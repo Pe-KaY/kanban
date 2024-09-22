@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { Column, Task } from '../../../interfaces/interfaces';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Task } from '../../../interfaces/interfaces';
 // import data service
 import { DataCenterService } from '../service/data-center.service';
 
@@ -13,6 +13,7 @@ import { DataCenterService } from '../service/data-center.service';
 export class TaskComponent {
   constructor(public dataCenterService: DataCenterService) {}
 
+  @ViewChild('container') container!: ElementRef;
   @Input('task') task!: Task;
   @Input('columName') columName!: string;
   completedTasks!: number;
@@ -21,5 +22,11 @@ export class TaskComponent {
     this.completedTasks = this.task.subtasks.filter(
       (subtask) => subtask.isCompleted
     ).length;
+  }
+
+  ngAfterViewInit(): void {
+    this.container.nativeElement.addEventListener('mousedown', () => {
+      this.dataCenterService.task = this.task;
+    });
   }
 }
