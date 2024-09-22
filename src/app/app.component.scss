@@ -205,21 +205,35 @@
 
     // taskcontent
     .task-content {
-      background-color: pink;
+      // background-color: pink;
       overflow: auto;
       width: 100%;
       // border: 2px solid red;
 
       .columnwrap {
+        min-height: calc(100vh - 6rem);
         gap: 1rem;
         display: flex;
         padding-inline-start: 2rem;
 
         .columns {
           width: 18rem;
-          background-color: aqua;
+          // background-color: aqua;
           flex-shrink: 0;
-          // padding-block-start: 1rem;
+          display: flex;
+
+          .newcolumn {
+            background-color: linear-gradient(
+              180deg,
+              #e9effa,
+              rgba(233, 239, 250, 0.5)
+            );
+            width: 100%;
+            margin-block-start: 5.3rem;
+            place-content: center;
+            text-align: center;
+            border-radius: 0.5rem;
+          }
         }
       }
     }
