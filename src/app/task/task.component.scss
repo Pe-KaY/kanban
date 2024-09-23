@@ -1,5 +1,4 @@
 .container {
-
   &.darkMode {
     background: #2b2c37;
   }
@@ -13,14 +12,8 @@
   box-shadow: 0 4px 6px rgba(54, 78, 126, 0.102);
   cursor: pointer;
 
-  &:hover {
-    .taskname {
-      color: #635fc7;
-    }
-  }
-
   .taskname {
-    &.darkMode{
+    &.darkMode {
       color: white;
     }
     font-weight: bold;
@@ -31,5 +24,10 @@
     font-size: 0.8rem;
     font-weight: bold;
     color: #828fa3;
+  }
+  &:hover {
+    .taskname {
+      color: #635fc7;
+    }
   }
 }
