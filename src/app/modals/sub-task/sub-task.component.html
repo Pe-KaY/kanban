@@ -1,7 +1,9 @@
-<div class="container">
+<div [class.darkMode]="dataService.isDarkMode" class="container">
   <form [formGroup]="taskForm">
     <div class="titlewrap">
-      <p>{{ dataService.task.title }}</p>
+      <p class="title" [class.darkMode]="dataService.isDarkMode">
+        {{ dataService.task.title }}
+      </p>
       <!-- edit task svg -->
       <svg
         (click)="dataService.toggleTaskMenu()"
@@ -17,10 +19,14 @@
       </svg>
 
       <!-- float menu -->
-      <div class="editboardmenu" *ngIf="dataService.editTaskMenu">
+      <div
+        [class.darkMode]="dataService.isDarkMode"
+        class="editboardmenu"
+        *ngIf="dataService.editTaskMenu"
+      >
         <!-- float menu -->
         <div class="floatmenu">
-          <p class="editboard" (click)="dataService.editTask()">Edit Task</p>
+          <p [class.darkMode]="dataService.isDarkMode" class="editboard" (click)="dataService.editTask()">Edit Task</p>
           <p class="deleteboard" (click)="dataService.deleteTask()">
             Delete Task
           </p>
@@ -37,6 +43,7 @@
         Subtask ({{ completedSubtask }} out of {{ totalSubtask }})
       </p>
       <div
+        [class.darkMode]="dataService.isDarkMode"
         class="subtaskwrap"
         *ngFor="let subtask of subtasks.controls; let i = index"
         [formGroupName]="i"
@@ -47,6 +54,7 @@
           (change)="updateSubtask()"
         />
         <p
+          [class.darkMode]="dataService.isDarkMode"
           [class.ticked]="subtask.get('isCompleted')?.value"
           class="subTask-name"
         >
@@ -59,6 +67,7 @@
     <div class="statuswrap">
       <p class="currentstats-text">Current Status</p>
       <select
+        [class.darkMode]="dataService.isDarkMode"
         id="status"
         formControlName="status"
         [ngModel]="dataService.columName"

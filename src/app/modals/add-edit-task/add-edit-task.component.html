@@ -1,9 +1,12 @@
-<div class="container">
+<div [class.darkMode]="dataCenterService.isDarkMode" class="container">
   <form [formGroup]="taskForm">
-    <h2>{{ dataCenterService.editingTask ? "Edit Task" : "Add Task" }}</h2>
+    <h2 [class.darkMode]="dataCenterService.isDarkMode">
+      {{ dataCenterService.editingTask ? "Edit Task" : "Add Task" }}
+    </h2>
     <div class="titlediv">
-      <h5>Title</h5>
+      <h5 [class.darkMode]="dataCenterService.isDarkMode">Title</h5>
       <input
+        [class.darkMode]="dataCenterService.isDarkMode"
         id="title"
         formControlName="title"
         placeholder="e.g. Take coffee break"
@@ -11,8 +14,9 @@
     </div>
 
     <div class="descriptiondiv">
-      <h5>Description</h5>
+      <h5 [class.darkMode]="dataCenterService.isDarkMode">Description</h5>
       <textarea
+        [class.darkMode]="dataCenterService.isDarkMode"
         id="description"
         formControlName="description"
         placeholder="e.g. It’s always good to take a break. This 15 minute break will recharege the batteries a little "
@@ -21,13 +25,14 @@
 
     <!-- subtask -->
     <div formArrayName="subtasks">
-      <h5>Subtasks</h5>
+      <h5 [class.darkMode]="dataCenterService.isDarkMode">Subtasks</h5>
       <div
         *ngFor="let subtask of subtasks.controls; let i = index"
         [formGroupName]="i"
         class="subtaskdiv"
       >
         <input
+          [class.darkMode]="dataCenterService.isDarkMode"
           type="text"
           placeholder="Subtask Title"
           formControlName="title"
@@ -49,15 +54,18 @@
 
     <!-- status -->
     <div class="statusdiv">
-      <h5>Status</h5>
+      <h5 [class.darkMode]="dataCenterService.isDarkMode">Status</h5>
       <select
+        [class.darkMode]="dataCenterService.isDarkMode"
         id="status"
         formControlName="status"
         [ngModel]="dataCenterService.board.columns[0].name"
       >
         <!-- populate options using active Board column names -->
         <ng-container *ngFor="let column of columnNames">
-          <option [value]="column.name">{{ column.name }}</option>
+          <option [value]="column.name">
+            {{ column.name }}
+          </option>
         </ng-container>
       </select>
     </div>

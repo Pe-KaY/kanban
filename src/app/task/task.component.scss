@@ -1,4 +1,8 @@
 .container {
+
+  &.darkMode {
+    background: #2b2c37;
+  }
   background-color: white;
   min-height: 6rem;
   display: flex;
@@ -16,6 +20,9 @@
   }
 
   .taskname {
+    &.darkMode{
+      color: white;
+    }
     font-weight: bold;
     font-size: 0.9rem;
   }

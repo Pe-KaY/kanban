@@ -1,10 +1,11 @@
-<div class="container">
+<div class="container" [class.darkMode]="dataCenterService.isDarkMode">
   <form [formGroup]="boardForm" (ngSubmit)="onSubmit()">
     <!-- Board Name -->
-    <h2>{{ dataCenterService.editBoard ? "Edit Board" : "Add Board" }}</h2>
+    <h2 [class.darkMode]="dataCenterService.isDarkMode">{{ dataCenterService.editBoard ? "Edit Board" : "Add Board" }}</h2>
     <div>
-      <h5>Name</h5>
+      <h5 [class.darkMode]="dataCenterService.isDarkMode">Name</h5>
       <input
+        [class.darkMode]="dataCenterService.isDarkMode"
         id="boardName"
         formControlName="name"
         placeholder="e.g. Web Design"
@@ -13,13 +14,17 @@
 
     <!-- Columns Section -->
     <div formArrayName="columns" class="columns">
-      <h5>Columns</h5>
+      <h5  [class.darkMode]="dataCenterService.isDarkMode">Columns</h5>
       <div
-      class="columndiv"
+        class="columndiv"
         *ngFor="let column of columns.controls; let i = index"
         [formGroupName]="i"
       >
-        <input formControlName="name" placeholder="Enter column name" />
+        <input
+          [class.darkMode]="dataCenterService.isDarkMode"
+          formControlName="name"
+          placeholder="Enter column name"
+        />
 
         <button class="removecolumn" type="button" (click)="removeColumn(i)">
           <svg width="15" height="15" xmlns="http://www.w3.org/2000/svg">
@@ -29,14 +34,20 @@
             </g>
           </svg>
         </button>
-      </div> 
+      </div>
     </div>
 
     <div class="buttonswrap">
-      <button class="addnewcolumn-btn" type="button" (click)="addColumn()">+Add New Column</button>
+      <button class="addnewcolumn-btn" type="button" (click)="addColumn()">
+        +Add New Column
+      </button>
 
       <!-- Submit Button -->
-      <button class="savecreate-btn" type="submit" [disabled]="boardForm.invalid">
+      <button
+        class="savecreate-btn"
+        type="submit"
+        [disabled]="boardForm.invalid"
+      >
         {{ dataCenterService.editBoard ? "Save Changes" : "Create New Board" }}
       </button>
     </div>

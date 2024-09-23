@@ -2,6 +2,9 @@
 
 .container {
   background-color: white;
+  &.darkMode {
+    background: #2b2c37;
+  }
   border-radius: 1rem;
   width: 30rem;
   min-height: 50%;
@@ -23,12 +26,21 @@
       align-items: center;
       font-weight: bold;
       position: relative;
+      .title {
+        &.darkMode {
+          color: white;
+        }
+      }
 
       svg {
         cursor: pointer;
       }
       .editboardmenu {
         @include mixins.floatMenu();
+        &.darkMode {
+          background: #20212c;
+        }
+
         top: 120%;
         left: 75%;
         .floatmenu {
@@ -41,6 +53,11 @@
             font-weight: normal;
             font-size: 0.8rem;
             cursor: pointer;
+          }
+          .editboard {
+            &.darkMode {
+              color: #828fa3;
+            }
           }
           .deleteboard {
             color: red;
@@ -62,6 +79,12 @@
         margin-block-end: 0.5rem;
       }
       .subtaskwrap {
+        &.darkMode {
+          background: #20212c;
+          &:hover {
+            background: #39395b;
+          }
+        }
         background-color: #f4f7fd;
         display: flex;
         gap: 1rem;
@@ -70,6 +93,9 @@
         border-radius: 0.5rem;
 
         .subTask-name {
+          &.darkMode {
+            color: white;
+          }
           font-size: 0.8rem;
           font-weight: bold;
           &.ticked {
@@ -90,9 +116,16 @@
 
       select {
         @include mixins.forminput();
+        &.darkMode {
+          color: white;
+        }
         width: 100%;
         background-color: transparent;
       }
     }
+  }
+
+  @media (max-width: 500px) {
+    width: 20rem;
   }
 }
