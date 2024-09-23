@@ -39,7 +39,7 @@
           >
             Kanban
           </h1>
-
+            
           <ng-container *ngIf="activeBoard$ | async as board">
             <p
               [class.darkMode]="dataCenterService.isDarkMode"
@@ -106,17 +106,18 @@
           <div class="editboardmenu">
             <!-- float menu -->
             <div
+
               [class.darkMode]="dataCenterService.isDarkMode"
               class="floatmenu"
               *ngIf="dataCenterService.editBoardMenu"
             >
               <p
                 class="editboard"
-                (click)="dataCenterService.editactiveBoard()"
+                (click)="editBoard()"
               >
                 Edit board
               </p>
-              <p class="deleteboard" (click)="dataCenterService.deleteBoard()">
+              <p class="deleteboard" (click)="deleteBoard()">
                 Delete board
               </p>
             </div>
@@ -241,18 +242,18 @@
             <!-- renders only if active board has columns -->
             <ng-container *ngIf="board.columns.length > 0">
               <ng-container *ngFor="let column of board.columns">
-                <app-board [column]="column" class="columns"></app-board>
+                <app-board [index]="board.columns.indexOf(column)" [column]="column" class="columns"></app-board>
               </ng-container>
               <div class="columns">
                 <div
                   [class.darkMode]="dataCenterService.isDarkMode"
                   (click)="dataCenterService.editactiveBoard()"
                   class="newcolumn"
-                >
+                > 
                   + New Column
                 </div>
               </div>
-            </ng-container>
+            </ng-container> 
 
             <!-- renders only if active board has no columns -->
             <ng-container *ngIf="board.columns.length === 0">

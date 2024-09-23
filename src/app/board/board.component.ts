@@ -6,6 +6,7 @@ import { Column } from '../../../interfaces/interfaces';
 import { deleteTask, updateTask } from '../../../store/store.actions';
 import { Store } from '@ngrx/store';
 import { DataCenterService } from '../service/data-center.service';
+import { log } from 'node:util';
 
 @Component({
   selector: 'app-board',
@@ -17,6 +18,7 @@ import { DataCenterService } from '../service/data-center.service';
 export class BoardComponent {
   @Input('column') column!: Column;
   @Input() boardId!: string; // Input for board ID (from parent component)
+  @Input('index') index!: number;
 
   constructor(
     private store: Store,
@@ -73,5 +75,25 @@ export class BoardComponent {
         })
       );
     }
+  }
+
+  // circle colors
+  circleColor(status: string): string {
+    switch (status) {
+      case '0':
+        return '#49C4E5';
+      case '1':
+        return '#8471F2';
+      case '2':
+        return '#67E2AE';
+      default:
+        return this.getRandomHexColor();
+    }
+  }
+
+  // random colors
+  getRandomHexColor() {
+    const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    return `#${randomColor.padStart(6, '0').toUpperCase()}`;
   }
 }

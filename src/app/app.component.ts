@@ -89,4 +89,16 @@ export class AppComponent {
     this.hideSidebar();
     this.mobileMenu = !this.mobileMenu;
   }
+
+  // editboard
+  editBoard() {
+    this.dataCenterService.editBoardMenu = false;
+    this.dataCenterService.editactiveBoard();
+  }
+
+  // deleteboard
+  deleteBoard() {
+    this.dataCenterService.editBoardMenu = false;
+    this.dataCenterService.deleteBoard();
+  }
 }

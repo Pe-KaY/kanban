@@ -16,6 +16,7 @@
     // logo wrap
     .logowrap {
       width: fit-content;
+      height: 4rem;
       display: flex;
       gap: 1rem;
       align-items: center;
@@ -34,10 +35,6 @@
         margin-inline-end: 5rem;
       }
 
-      .mobileMenu {
-        display: none;
-      }
-
       .boardname {
         margin-inline-start: auto;
         font-size: 1.3rem;
@@ -45,6 +42,9 @@
         &.darkMode {
           color: white;
         }
+      }
+      .mobileMenu {
+        display: none;
       }
     }
 
@@ -60,6 +60,10 @@
       // button
       .forpc-btn {
         @include mixins.button(#635fc7);
+        transition: background-color 0.2s;
+        &:hover {
+          background-color: #a8a4ff;
+        }
         &.disable {
           background-color: #d8d7f1;
           pointer-events: none;
@@ -353,6 +357,10 @@
 
           button {
             @include mixins.button(#635fc7);
+            transition: background-color 0.2s;
+            &:hover {
+              background-color: #a8a4ff;
+            }
           }
         }
       }
@@ -393,6 +401,10 @@
     }
     .forpc-btn {
       @include mixins.button(#635fc7);
+      transition: background-color 0.2s;
+      &:hover {
+        background-color: #a8a4ff;
+      }
     }
   }
 

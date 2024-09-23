@@ -18,7 +18,7 @@
         </g>
       </svg>
 
-      <!-- float menu -->
+      <!-- float menu --> 
       <div
         [class.darkMode]="dataService.isDarkMode"
         class="editboardmenu"
@@ -26,8 +26,8 @@
       >
         <!-- float menu -->
         <div class="floatmenu">
-          <p [class.darkMode]="dataService.isDarkMode" class="editboard" (click)="dataService.editTask()">Edit Task</p>
-          <p class="deleteboard" (click)="dataService.deleteTask()">
+          <p [class.darkMode]="dataService.isDarkMode" class="editboard" (click)="editTask()">Edit Task</p>
+          <p class="deleteboard" (click)="deleteTask()">
             Delete Task
           </p>
         </div>

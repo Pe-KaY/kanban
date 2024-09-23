@@ -62,7 +62,6 @@
       gap: 1rem;
       margin-block-end: 0.5rem;
 
-
       button {
         border: none;
         background-color: transparent;
@@ -79,11 +78,17 @@
       select {
         @include mixins.forminput();
         &.darkMode {
+          background-color: transparent;
           color: white;
         }
         width: 100%;
         height: 3rem;
         background-color: transparent;
+
+        option {
+          background-color: transparent;
+          color: black;
+        }
       }
     }
 

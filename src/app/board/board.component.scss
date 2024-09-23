@@ -11,6 +11,13 @@
     }
     font-size: 0.8rem;
     letter-spacing: 0.1rem;
+
+    .circlecolor{
+      width: 0.5rem;
+      height: 0.5rem;
+      display: inline-block;
+      border-radius: 100vw;
+    }
   }
 
   .column-tasks {
