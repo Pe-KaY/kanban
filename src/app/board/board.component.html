@@ -1,11 +1,11 @@
 <div class="container" (dragover)="onDragOver($event)" (drop)="onDrop($event)">
   <p [class.darkMode]="dataCenterService.isDarkMode" class="columnname">
-    {{ column.name }} ({{ column.tasks.length }})
+    <span class="circlecolor" [style.background-color]="circleColor(index.toString())" [class.darkMode]="dataCenterService.isDarkMode" ></span> {{ column.name }} ({{ column.tasks.length }})
   </p>
 
   <!-- column tasks -->
   <div class="column-tasks" *ngIf="column.tasks">
-    <ng-container *ngFor="let task of column.tasks">
+    <ng-container *ngFor="let task of column.tasks"> 
       <app-task
         [task]="task"
         [columName]="column.name"

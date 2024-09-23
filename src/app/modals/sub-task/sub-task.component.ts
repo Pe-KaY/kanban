@@ -82,7 +82,7 @@ export class SubTaskComponent {
         boardId: this.dataService.currentBoardId,
         columnName: this.dataService.columName,
         task: updatedTask,
-      }) 
+      })
     );
   }
 
@@ -103,6 +103,17 @@ export class SubTaskComponent {
     );
     // resets form
     this.taskForm.reset();
+  }
+
+  // Float Menu
+  deleteTask() {
+    this.dataService.editTaskMenu = false;
+    this.dataService.deleteTask();
+  }
+
+  editTask() {
+    this.dataService.editTaskMenu = false;
+    this.dataService.editTask();
   }
 
   // updates subtask and status on destroy
