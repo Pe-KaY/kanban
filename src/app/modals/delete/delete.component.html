@@ -1,4 +1,4 @@
-<div class="container">
+<div [class.darkMode]="dataService.isDarkMode" class="container">
   <h3>Delete this {{ dataService.deletingBoard ? "Board" : "Task" }}?</h3>
 
   <!-- deleting board message -->
@@ -19,6 +19,7 @@
 
   <div class="btnwrap">
     <button class="deletebtn" (click)="delete()">Delete</button>
-    <button class="cancelbtn" (click)="dataService.toggleModal()" >Cancel</button>
+    <button [class.darkMode]="dataService.isDarkMode" class="cancelbtn" (click)="dataService.toggleModal()" >Cancel</button>
   </div>
-</div>
+</div> 
+ 

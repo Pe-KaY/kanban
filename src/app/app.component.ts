@@ -82,4 +82,11 @@ export class AppComponent {
   hideSidebar() {
     this.hideBar = !this.hideBar;
   }
+
+  // toggle mobile menu
+  mobileMenu = false;
+  toggleMobileMenu() {
+    this.hideSidebar();
+    this.mobileMenu = !this.mobileMenu;
+  }
 }

@@ -7,6 +7,9 @@
   flex-direction: column;
 
   .headerbar {
+    &.darkMode {
+      background-color: #2b2c37;
+    }
     display: flex;
     justify-content: space-between;
 
@@ -25,13 +28,23 @@
       }
 
       .kanbanname {
+        &.darkMode {
+          color: white;
+        }
         margin-inline-end: 5rem;
+      }
+
+      .mobileMenu {
+        display: none;
       }
 
       .boardname {
         margin-inline-start: auto;
         font-size: 1.3rem;
         font-weight: bold;
+        &.darkMode {
+          color: white;
+        }
       }
     }
 
@@ -47,6 +60,10 @@
       // button
       .forpc-btn {
         @include mixins.button(#635fc7);
+        &.disable {
+          background-color: #d8d7f1;
+          pointer-events: none;
+        }
       }
 
       // for mobile
@@ -61,6 +78,11 @@
         display: none;
         border: none;
         border-radius: 100vw;
+        cursor: pointer;
+        &.disable {
+          background-color: #d8d7f1;
+          pointer-events: none;
+        }
 
         img {
           width: 1rem;
@@ -71,13 +93,19 @@
       .editboardmenu {
         position: relative;
         cursor: pointer;
-        &:hover .floatmenu {
-          visibility: visible;
-        }
 
         .floatmenu {
-          // visibility: hidden;
+          z-index: 10;
           @include mixins.floatMenu();
+          &.darkMode {
+            background-color: #2b2c37;
+            p {
+              color: #828fa3;
+            }
+            .deleteboard {
+              color: #ea5555;
+            }
+          }
 
           p {
             font-size: 0.8rem;
@@ -85,7 +113,7 @@
           }
 
           .deleteboard {
-            color: red;
+            color: #ea5555;
           }
         }
 
@@ -110,15 +138,25 @@
 
   .contentwrapper {
     background-color: #f4f7fd;
+    position: relative;
     height: 100%;
     overflow: hidden;
     display: flex;
 
-    // sidebar
+    .mobilefloat {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.381);
+      inset: 0;
+      display: none;
+    }
+
     .sidebar {
       &.hide {
         // to hide side bar
         display: none;
+      }
+      &.darkMode {
+        background-color: #2b2c37;
       }
       background-color: white;
       padding-block-start: 2rem;
@@ -167,7 +205,6 @@
       }
       // theme wrapp
       .themewrapp {
-        // border: 1px solid purple;
         height: 20%;
         display: flex;
         flex-direction: column;
@@ -175,6 +212,9 @@
 
         // theme
         .theme {
+          &.darkMode {
+            background-color: #20212c;
+          }
           background-color: #f4f7fd;
           width: 80%;
           height: 3rem;
@@ -225,12 +265,30 @@
       }
     }
 
+    // show sidebar toggle
+    .float {
+      @include mixins.board();
+      background-color: #635fc7;
+      width: 10rem;
+      position: fixed;
+      bottom: 1rem;
+      display: flex;
+      justify-content: end;
+      animation: float 0.1s forwards;
+    }
+    @keyframes float {
+      to {
+        transform: translate3d(-60%, -10px, 0);
+      }
+    }
+
     // taskcontent
     .task-content {
-      // background-color: pink;
+      &.darkMode {
+        background-color: #20212c;
+      }
       overflow: auto;
       width: 100%;
-      // border: 2px solid red;
 
       .columnwrap {
         min-height: calc(100vh - 6rem);
@@ -241,7 +299,6 @@
 
         .columns {
           width: 18rem;
-          // background-color: aqua;
           flex-shrink: 0;
           display: flex;
 
@@ -254,6 +311,13 @@
               #e9effa,
               rgba(233, 239, 250, 0.5)
             );
+            &.darkMode {
+              background: linear-gradient(
+                180deg,
+                rgba(43, 44, 55, 0.25),
+                rgba(43, 44, 55, 0.125)
+              );
+            }
             width: 100%;
             margin-block-start: 5.3rem;
             place-content: center;
@@ -264,6 +328,31 @@
             border-radius: 0.5rem;
             transition: color 0.3s;
             cursor: pointer;
+          }
+        }
+
+        .no-column {
+          &.darkmode {
+            background-color: transparent;
+          }
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          gap: 1rem;
+
+          p {
+            &.darkMode {
+              color: white;
+            }
+            text-align: center;
+            font-size: 1rem;
+            font-weight: bold;
+          }
+
+          button {
+            @include mixins.button(#635fc7);
           }
         }
       }
@@ -304,6 +393,67 @@
     }
     .forpc-btn {
       @include mixins.button(#635fc7);
+    }
+  }
+
+  // media Queries
+  @media (max-width: 500px) {
+    .headerbar {
+      .logowrap {
+        .kanbanname {
+          display: none;
+        }
+        .boardname {
+          display: flex;
+          align-items: center;
+          gap: 0.2rem;
+
+          .mobileMenu {
+            display: flex;
+            height: 0.5rem;
+            flex-direction: column;
+            align-items: center;
+
+            svg {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+
+    .contentwrapper {
+      // position: relative;
+      .float {
+        display: none;
+      }
+
+      .mobilefloat {
+        display: block;
+      }
+      .sidebar {
+        position: absolute;
+        top: 32%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 0.5rem;
+        display: none;
+        &.showmobile-sidebar {
+          display: flex;
+        }
+
+        .themewrapp {
+          .hidesidebar {
+            display: none;
+          }
+        }
+      }
+    }
+    .modal {
+      .modalcomponents {
+        width: 20rem;
+        overflow: auto;
+      }
     }
   }
 }

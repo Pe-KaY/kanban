@@ -3,7 +3,7 @@
     <!-- if boards exist show boards -->
     <ng-container *ngIf="boards.length > 0">
       <!-- headerwrap -->
-      <div class="headerbar">
+      <div [class.darkMode]="dataCenterService.isDarkMode" class="headerbar">
         <!-- logo wrap and board name -->
         <div class="logowrap">
           <!-- logo svg -->
@@ -33,30 +33,83 @@
             />
           </svg>
           <!-- board name -->
-          <h1 class="kanbanname">Kanban</h1>
+          <h1
+            [class.darkMode]="dataCenterService.isDarkMode"
+            class="kanbanname"
+          >
+            Kanban
+          </h1>
 
           <ng-container *ngIf="activeBoard$ | async as board">
-            <p class="boardname">{{ board.name }}</p>
+            <p
+              [class.darkMode]="dataCenterService.isDarkMode"
+              class="boardname"
+            >
+              {{ board.name }}
+              <span class="mobileMenu">
+                <ng-container *ngIf="!mobileMenu">
+                  <!-- chevron down -->
+                  <svg
+                    (click)="toggleMobileMenu()"
+                    width="10"
+                    height="7"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke="#635FC7"
+                      stroke-width="2"
+                      fill="none"
+                      d="m1 1 4 4 4-4"
+                    />
+                  </svg>
+                </ng-container>
+                <!-- chevron up-->
+                <ng-container *ngIf="mobileMenu">
+                  <svg
+                    (click)="toggleMobileMenu()"
+                    width="10"
+                    height="7"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke="#635FC7"
+                      stroke-width="2"
+                      fill="none"
+                      d="M9 6 5 2 1 6"
+                    />
+                  </svg>
+                </ng-container>
+              </span>
+            </p>
           </ng-container>
         </div>
 
         <!-- add task -->
         <div class="addtaskwrap">
           <button
+            [class.disable]="dataCenterService.board.columns.length === 0"
             class="forpc-btn"
             (click)="dataCenterService.addEditTaskModal()"
           >
             +Add New Task
           </button>
           <!-- for mobile view -->
-          <button class="formobile-btn">
+          <button
+            [class.disable]="dataCenterService.board.columns.length === 0"
+            (click)="dataCenterService.addEditTaskModal()"
+            class="formobile-btn"
+          >
             <img src="../assets/icons/plus.png" alt="add" />
           </button>
 
           <!-- edit board menu wrap -->
           <div class="editboardmenu">
             <!-- float menu -->
-            <div class="floatmenu" *ngIf="dataCenterService.editBoardMenu">
+            <div
+              [class.darkMode]="dataCenterService.isDarkMode"
+              class="floatmenu"
+              *ngIf="dataCenterService.editBoardMenu"
+            >
               <p
                 class="editboard"
                 (click)="dataCenterService.editactiveBoard()"
@@ -86,8 +139,16 @@
 
       <!-- kanban content wrap -->
       <div class="contentwrapper">
+        <!-- mobile float menu -->
+        <div class="mobilefloat" *ngIf="mobileMenu"></div>
+
         <!-- kanban sidebar -->
-        <div class="sidebar" [class.hide]="hideBar">
+        <div
+          class="sidebar"
+          [class.darkMode]="dataCenterService.isDarkMode"
+          [class.hide]="hideBar"
+          [class.showmobile-sidebar]="mobileMenu"
+        >
           <p class="subhead">ALL BOARDS ({{ boards.length }})</p>
 
           <!-- boards list  and theme-->
@@ -108,14 +169,13 @@
               <svg width="16" height="16" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M0 2.889A2.889 2.889 0 0 1 2.889 0H13.11A2.889 2.889 0 0 1 16 2.889V13.11A2.888 2.888 0 0 1 13.111 16H2.89A2.889 2.889 0 0 1 0 13.111V2.89Zm1.333 5.555v4.667c0 .859.697 1.556 1.556 1.556h6.889V8.444H1.333Zm8.445-1.333V1.333h-6.89A1.556 1.556 0 0 0 1.334 2.89V7.11h8.445Zm4.889-1.333H11.11v4.444h3.556V5.778Zm0 5.778H11.11v3.11h2a1.556 1.556 0 0 0 1.556-1.555v-1.555Zm0-7.112V2.89a1.555 1.555 0 0 0-1.556-1.556h-2v3.111h3.556Z"
-                  
                 />
               </svg>
               <p>+Create New Board</p>
             </div>
           </div>
           <div class="themewrapp">
-            <div class="theme">
+            <div [class.darkMode]="dataCenterService.isDarkMode" class="theme">
               <!-- sun svg -->
               <svg width="19" height="19" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -139,8 +199,12 @@
                 />
               </svg>
             </div>
-            <!-- hide status -->
-            <div class="hidesidebar" (click)="hideSidebar()">
+            <!-- hide sidebar-->
+            <div
+              [class.float]="hideBar"
+              class="hidesidebar"
+              (click)="hideSidebar()"
+            >
               <!-- hide svg -->
               <svg width="18" height="16" xmlns="http://www.w3.org/2000/svg">
                 <path
@@ -154,22 +218,50 @@
           </div>
         </div>
 
+        <!-- show side bar toggle -->
+        <ng-container *ngIf="hideBar">
+          <div class="hidesidebar float" (click)="hideSidebar()">
+            <!-- hide svg -->
+            <svg width="16" height="11" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M15.815 4.434A9.055 9.055 0 0 0 8 0 9.055 9.055 0 0 0 .185 4.434a1.333 1.333 0 0 0 0 1.354A9.055 9.055 0 0 0 8 10.222c3.33 0 6.25-1.777 7.815-4.434a1.333 1.333 0 0 0 0-1.354ZM8 8.89A3.776 3.776 0 0 1 4.222 5.11 3.776 3.776 0 0 1 8 1.333a3.776 3.776 0 0 1 3.778 3.778A3.776 3.776 0 0 1 8 8.89Zm2.889-3.778a2.889 2.889 0 1 1-5.438-1.36 1.19 1.19 0 1 0 1.19-1.189H6.64a2.889 2.889 0 0 1 4.25 2.549Z"
+                fill="#FFF"
+              />
+            </svg>
+          </div>
+        </ng-container>
+
         <!-- Kanban task -->
-        <div class="task-content" *ngIf="activeBoard$ | async as board">
+        <div
+          [class.darkMode]="dataCenterService.isDarkMode"
+          class="task-content"
+          *ngIf="activeBoard$ | async as board"
+        >
           <div class="columnwrap">
             <!-- renders only if active board has columns -->
             <ng-container *ngIf="board.columns.length > 0">
               <ng-container *ngFor="let column of board.columns">
                 <app-board [column]="column" class="columns"></app-board>
               </ng-container>
-              <div class="columns" (click)="dataCenterService.editactiveBoard()">
-                <div class="newcolumn">+ New Column</div>
+              <div class="columns">
+                <div
+                  [class.darkMode]="dataCenterService.isDarkMode"
+                  (click)="dataCenterService.editactiveBoard()"
+                  class="newcolumn"
+                >
+                  + New Column
+                </div>
               </div>
             </ng-container>
 
             <!-- renders only if active board has no columns -->
             <ng-container *ngIf="board.columns.length === 0">
-              <div class="no-column">No Columns</div>
+              <div [class.darkMode]="dataCenterService.isDarkMode" class="no-column">
+                <p [class.darkMode]="dataCenterService.isDarkMode">This board is empty. Create a new column to get started.</p>
+                <button (click)="dataCenterService.editactiveBoard()">
+                  +Add New Column
+                </button>
+              </div>
             </ng-container>
           </div>
         </div>
@@ -178,7 +270,7 @@
 
     <!-- if no boards exist -->
     <ng-container *ngIf="boards.length === 0">
-      <div class="noboards">
+      <div  class="noboards">
         <p>There are no boards available. Create a new board to get started</p>
         <button class="forpc-btn" (click)="dataCenterService.createNewBoard()">
           +Add New Board

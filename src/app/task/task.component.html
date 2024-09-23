@@ -1,9 +1,11 @@
 <div
+  [class.darkMode]="dataCenterService.isDarkMode"
   class="container"
   (click)="dataCenterService.editSubTaskModal(task, columName)"
   #container
 >
-  <p class="taskname">{{ task.title }}</p>
-  <p class="subtasks">{{ completedTasks }} of {{ task.subtasks.length }} subtasks</p>
+  <p class="taskname" [class.darkMode]="dataCenterService.isDarkMode">{{ task.title }}</p>
+  <p class="subtasks">
+    {{ completedTasks }} of {{ task.subtasks.length }} subtasks
+  </p>
 </div>
- 
