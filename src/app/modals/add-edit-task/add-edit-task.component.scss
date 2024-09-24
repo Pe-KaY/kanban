@@ -29,6 +29,7 @@
         @include mixins.forminput();
         &.darkMode {
           background-color: transparent;
+          color: white;
           &::placeholder {
             color: #9b9ba2;
           }
@@ -46,6 +47,7 @@
         @include mixins.forminput();
         &.darkMode {
           background-color: transparent;
+          color: white;
           &::placeholder {
             color: #9b9ba2;
           }
